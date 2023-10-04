@@ -58,7 +58,7 @@ class SignUpScreen extends StatelessWidget {
               const Text('Already have an account?'),
               Gaps.h5,
               GestureDetector(
-                onTap: () => onLogInTap(context),
+                onTap: () => _onLogInTap(context),
                 child: Text(
                   'Log in',
                   style: TextStyle(
@@ -73,7 +73,7 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  void onLogInTap(BuildContext context) {
+  void _onLogInTap(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const LoginScreen(),
