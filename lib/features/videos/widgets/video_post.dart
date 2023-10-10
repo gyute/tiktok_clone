@@ -14,8 +14,7 @@ class VideoPost extends StatefulWidget {
 }
 
 class _VideoPostState extends State<VideoPost> {
-  final VideoPlayerController _videoPlayerController =
-      VideoPlayerController.asset("assets/videos/video.mp4");
+  late VideoPlayerController _videoPlayerController;
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +43,13 @@ class _VideoPostState extends State<VideoPost> {
     _initVideoPlayer();
   }
 
-  void _initVideoPlayer() async {
-    await _videoPlayerController.initialize();
-    _videoPlayerController.play();
-    setState(() {});
+  void _initVideoPlayer() {
+    _videoPlayerController =
+        VideoPlayerController.asset("assets/videos/video.mp4")
+          ..initialize().then((_) {
+            _videoPlayerController.play();
+            setState(() {});
+          });
     _videoPlayerController.addListener(_onVideoChage);
   }
 
