@@ -18,13 +18,19 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PageView.builder(
-      controller: _pageController,
-      scrollDirection: Axis.vertical,
-      onPageChanged: _onPageChanged,
-      itemCount: _itemCount,
-      itemBuilder: (context, index) =>
-          VideoPost(onVideoFinished: _onVideoFinished, index: index),
+    return RefreshIndicator(
+      displacement: 50,
+      edgeOffset: 20,
+      color: Theme.of(context).primaryColor,
+      onRefresh: _onRefresh,
+      child: PageView.builder(
+        controller: _pageController,
+        scrollDirection: Axis.vertical,
+        onPageChanged: _onPageChanged,
+        itemCount: _itemCount,
+        itemBuilder: (context, index) =>
+            VideoPost(onVideoFinished: _onVideoFinished, index: index),
+      ),
     );
   }
 
@@ -47,10 +53,19 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
     }
   }
 
-  void _onVideoFinished() {
-    _pageController.nextPage(
-      duration: _scrollDuration,
-      curve: _scrollCurve,
+  Future<void> _onRefresh() {
+    // TODO: `Future.delayed()` is a dummy
+    return Future.delayed(
+      const Duration(seconds: 3),
     );
+  }
+
+  void _onVideoFinished() {
+    return;
+    // NOTE: Implementation for want to automatically skip to the next video like Youtube Shorts
+    // _pageController.nextPage(
+    //   duration: _scrollDuration,
+    //   curve: _scrollCurve,
+    // );
   }
 }
