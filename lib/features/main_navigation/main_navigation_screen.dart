@@ -34,7 +34,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           Offstage(
             offstage: _selectedIndex != 3,
-            child: Container(),
+            child: InboxScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 4,
