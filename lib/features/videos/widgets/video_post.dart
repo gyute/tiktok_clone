@@ -156,13 +156,16 @@ class _VideoPostState extends State<VideoPost>
     _animationController.addListener(() {});
   }
 
-  void _initVideoPlayer() {
+  void _initVideoPlayer() async {
     _videoPlayerController =
         VideoPlayerController.asset("assets/videos/video.mp4")
           ..setLooping(true)
           ..initialize().then((_) {
             setState(() {});
           });
+    if (kIsWeb) {
+      await _videoPlayerController.setVolume(0);
+    }
     _videoPlayerController.addListener(_onVideoChage);
   }
 
