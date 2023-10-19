@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/breakpoints.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/utils.dart';
 
 final tabs = [
   "Top",
@@ -44,19 +45,20 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               controller: _textEditingController,
               onChanged: _onSearchChanged,
               onSubmitted: _onSearchSubmitted,
+              style: TextStyle(
+                color: isDarkMode(context) ? Colors.white : Colors.black,
+              ),
             ),
           ),
           bottom: TabBar(
             padding: const EdgeInsets.symmetric(
               horizontal: Sizes.size16,
             ),
-            labelColor: Colors.black,
             labelStyle: const TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: Sizes.size16,
             ),
-            unselectedLabelColor: Colors.grey.shade500,
-            indicatorColor: Colors.black,
+            indicatorColor: Theme.of(context).tabBarTheme.indicatorColor,
             isScrollable: true,
             splashFactory: NoSplash.splashFactory,
             tabs: [
@@ -114,7 +116,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         constraints.maxWidth > 250)
                       DefaultTextStyle(
                         style: TextStyle(
-                          color: Colors.grey.shade600,
+                          color: isDarkMode(context)
+                              ? Colors.grey.shade300
+                              : Colors.grey.shade600,
                           fontWeight: FontWeight.w600,
                         ),
                         child: Row(
