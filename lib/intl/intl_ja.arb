@@ -1,0 +1,6 @@
+{
+  "signUpTitle": "{nameOfTheApp}へようこそ\n{when}",
+  "likeCount": "{value}",
+  "commentCount": "{value}",
+  "commentTitle": "{value} {value2, plural, =1{comment} other{comments}}"
+}
