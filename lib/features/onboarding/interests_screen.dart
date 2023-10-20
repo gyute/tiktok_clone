@@ -57,40 +57,6 @@ class _InterestsScreenState extends State<InterestsScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _showTitle = false;
 
-  void _onScroll() {
-    if (_scrollController.offset > 100) {
-      if (_showTitle) return;
-      setState(() {
-        _showTitle = true;
-      });
-    } else {
-      setState(() {
-        _showTitle = false;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_onScroll);
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  void _onNextTap() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const TutorialScreen(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,5 +137,39 @@ class _InterestsScreenState extends State<InterestsScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onNextTap() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const TutorialScreen(),
+      ),
+    );
+  }
+
+  void _onScroll() {
+    if (_scrollController.offset > 100) {
+      if (_showTitle) return;
+      setState(() {
+        _showTitle = true;
+      });
+    } else {
+      setState(() {
+        _showTitle = false;
+      });
+    }
   }
 }

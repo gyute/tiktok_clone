@@ -20,41 +20,6 @@ class _TutorialScreenState extends State<TutorialScreen> {
   Direction _direction = Direction.right;
   Page _showingPage = Page.first;
 
-  void _onEnterAppTap() {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (context) => const MainNavigationScreen(),
-      ),
-      (route) => false,
-    );
-  }
-
-  void _onPanUpdate(DragUpdateDetails details) {
-    if (details.delta.dx > 0) {
-      // to the right
-      setState(() {
-        _direction = Direction.right;
-      });
-    } else {
-      // to the left
-      setState(() {
-        _direction = Direction.left;
-      });
-    }
-  }
-
-  void _onPanEnd(DragEndDetails details) {
-    if (_direction == Direction.left) {
-      setState(() {
-        _showingPage = Page.second;
-      });
-    } else {
-      setState(() {
-        _showingPage = Page.first;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -131,5 +96,40 @@ class _TutorialScreenState extends State<TutorialScreen> {
         ),
       ),
     );
+  }
+
+  void _onEnterAppTap() {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => const MainNavigationScreen(),
+      ),
+      (route) => false,
+    );
+  }
+
+  void _onPanEnd(DragEndDetails details) {
+    if (_direction == Direction.left) {
+      setState(() {
+        _showingPage = Page.second;
+      });
+    } else {
+      setState(() {
+        _showingPage = Page.first;
+      });
+    }
+  }
+
+  void _onPanUpdate(DragUpdateDetails details) {
+    if (details.delta.dx > 0) {
+      // to the right
+      setState(() {
+        _direction = Direction.right;
+      });
+    } else {
+      // to the left
+      setState(() {
+        _direction = Direction.left;
+      });
+    }
   }
 }

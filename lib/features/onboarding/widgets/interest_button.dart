@@ -3,12 +3,12 @@ import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/utils.dart';
 
 class InterestButton extends StatefulWidget {
+  final String interest;
+
   const InterestButton({
     super.key,
     required this.interest,
   });
-
-  final String interest;
 
   @override
   State<InterestButton> createState() => _InterestButtonState();
@@ -16,12 +16,6 @@ class InterestButton extends StatefulWidget {
 
 class _InterestButtonState extends State<InterestButton> {
   bool _isSelected = false;
-
-  void _onTap() {
-    setState(() {
-      _isSelected = !_isSelected;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,5 +57,11 @@ class _InterestButtonState extends State<InterestButton> {
         ),
       ),
     );
+  }
+
+  void _onTap() {
+    setState(() {
+      _isSelected = !_isSelected;
+    });
   }
 }

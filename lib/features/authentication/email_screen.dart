@@ -19,53 +19,18 @@ class EmailScreen extends StatefulWidget {
   State<EmailScreen> createState() => _EmailScreenState();
 }
 
+class EmailScreenArgs {
+  final String username;
+
+  EmailScreenArgs({
+    required this.username,
+  });
+}
+
 class _EmailScreenState extends State<EmailScreen> {
   final TextEditingController _emailController = TextEditingController();
 
   String _email = '';
-
-  @override
-  void initState() {
-    super.initState();
-
-    _emailController.addListener(() {
-      setState(() {
-        _email = _emailController.text;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    super.dispose();
-  }
-
-  String? _isEmailValid() {
-    if (_email.isEmpty) return null;
-    final regExp = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-
-    if (!regExp.hasMatch(_email)) {
-      return "Email not valid";
-    }
-
-    return null;
-  }
-
-  void _onScaffoldTap() {
-    FocusScope.of(context).unfocus();
-  }
-
-  void _onSubmit() {
-    if (_email.isEmpty || _isEmailValid() != null) return;
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const PasswordScreen(),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,12 +88,47 @@ class _EmailScreenState extends State<EmailScreen> {
       ),
     );
   }
-}
 
-class EmailScreenArgs {
-  final String username;
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
 
-  EmailScreenArgs({
-    required this.username,
-  });
+  @override
+  void initState() {
+    super.initState();
+
+    _emailController.addListener(() {
+      setState(() {
+        _email = _emailController.text;
+      });
+    });
+  }
+
+  String? _isEmailValid() {
+    if (_email.isEmpty) return null;
+    final regExp = RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+
+    if (!regExp.hasMatch(_email)) {
+      return "Email not valid";
+    }
+
+    return null;
+  }
+
+  void _onScaffoldTap() {
+    FocusScope.of(context).unfocus();
+  }
+
+  void _onSubmit() {
+    if (_email.isEmpty || _isEmailValid() != null) return;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PasswordScreen(),
+      ),
+    );
+  }
 }

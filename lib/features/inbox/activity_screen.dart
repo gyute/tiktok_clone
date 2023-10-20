@@ -203,7 +203,7 @@ class _ActivityScreenState extends State<ActivityScreen>
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).appBarTheme.backgroundColor,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(
                     Sizes.size5,
                   ),

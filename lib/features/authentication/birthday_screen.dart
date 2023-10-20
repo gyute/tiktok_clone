@@ -98,15 +98,6 @@ class _BrithdayScreenState extends State<BirthdayScreen> {
     _setTextFieldDate(initialDate);
   }
 
-  void _onNextTap() {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (context) => const InterestsScreen(),
-      ),
-      (route) => false,
-    );
-  }
-
   DateTime _initialDate() {
     DateTime now = DateTime.now();
     return DateTime(
@@ -118,6 +109,15 @@ class _BrithdayScreenState extends State<BirthdayScreen> {
       // now.second,
       // now.millisecond,
       // now.microsecond,
+    );
+  }
+
+  void _onNextTap() {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => const InterestsScreen(),
+      ),
+      (route) => false,
     );
   }
 
