@@ -39,17 +39,20 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
           Offstage(
             offstage: _selectedIndex != 3,
-            child: InboxScreen(),
+            child: const InboxScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 4,
-            child: UserProfileScreen(),
+            child: const UserProfileScreen(
+              username: "UNKNOWN",
+              tab: "",
+            ),
           ),
         ],
       ),
       bottomNavigationBar: Container(
         color: _selectedIndex == 0 || isDark ? Colors.black : Colors.white,
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           bottom: Sizes.size32,
         ),
         child: Padding(

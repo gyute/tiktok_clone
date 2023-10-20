@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/intl_generated.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/login_screen.dart';
@@ -9,7 +10,8 @@ import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok_clone/utils.dart';
 
 class SignUpScreen extends StatelessWidget {
-  static String routeName = "/";
+  static const routeURL = "/";
+  static const routeName = "signUp";
   const SignUpScreen({super.key});
 
   @override
@@ -75,7 +77,7 @@ class SignUpScreen extends StatelessWidget {
               Text(AppLocalizations.of(context)!.alreadyHaveAnAccount),
               Gaps.h5,
               GestureDetector(
-                onTap: () => _onLogInTap(context),
+                onTap: () => _onLoginTap(context),
                 child: Text(
                   AppLocalizations.of(context)!.login("Martian"),
                   style: TextStyle(
@@ -91,10 +93,10 @@ class SignUpScreen extends StatelessWidget {
   }
 
   void _onEmailTap(BuildContext context) {
-    Navigator.of(context).pushNamed(UsernameScreen.routeName);
+    context.pushNamed(UsernameScreen.routeName);
   }
 
-  void _onLogInTap(BuildContext context) {
-    Navigator.of(context).pushNamed(LoginScreen.routeName);
+  void _onLoginTap(BuildContext context) {
+    context.push(LoginScreen.routeName);
   }
 }
