@@ -38,7 +38,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         appBar: AppBar(
           elevation: 1,
           title: Container(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxWidth: Breakpoints.sm,
             ),
             child: CupertinoSearchTextField(
@@ -102,11 +102,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       ),
                     ),
                     Gaps.v10,
-                    Text(
+                    const Text(
                       "This is a very long caption for my tiktok that I'm upload just now currently.",
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       style: TextStyle(
+                        height: 1.1,
                         fontSize: Sizes.size14,
                         fontWeight: FontWeight.bold,
                       ),
@@ -123,7 +124,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         ),
                         child: Row(
                           children: [
-                            CircleAvatar(
+                            const CircleAvatar(
                               radius: Sizes.size12,
                               backgroundImage: NetworkImage(
                                   "https://avatars.githubusercontent.com/u/15077948?v=4"),
