@@ -15,6 +15,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
   late CameraController _cameraController;
   bool _hasPermission = false;
   bool _isSelfieMode = false;
+  late FlashMode _flashMode;
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +46,46 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
                   Positioned(
                     top: Sizes.size36,
                     left: Sizes.size20,
-                    child: IconButton(
-                      onPressed: _toggleSelfieMode,
-                      icon: const Icon(Icons.cameraswitch),
-                      color: Colors.white,
+                    child: Column(
+                      children: [
+                        IconButton(
+                          onPressed: _toggleSelfieMode,
+                          icon: const Icon(Icons.cameraswitch),
+                          color: Colors.white,
+                        ),
+                        Gaps.v10,
+                        IconButton(
+                          onPressed: () => _setFlashMode(FlashMode.off),
+                          icon: const Icon(Icons.flash_off_rounded),
+                          color: _flashMode == FlashMode.off
+                              ? Colors.amber.shade200
+                              : Colors.white,
+                        ),
+                        Gaps.v10,
+                        IconButton(
+                          onPressed: () => _setFlashMode(FlashMode.always),
+                          icon: const Icon(Icons.flash_on_rounded),
+                          color: _flashMode == FlashMode.always
+                              ? Colors.amber.shade200
+                              : Colors.white,
+                        ),
+                        Gaps.v10,
+                        IconButton(
+                          onPressed: () => _setFlashMode(FlashMode.auto),
+                          icon: const Icon(Icons.flash_auto_rounded),
+                          color: _flashMode == FlashMode.auto
+                              ? Colors.amber.shade200
+                              : Colors.white,
+                        ),
+                        Gaps.v10,
+                        IconButton(
+                          onPressed: () => _setFlashMode(FlashMode.torch),
+                          icon: const Icon(Icons.flashlight_on_rounded),
+                          color: _flashMode == FlashMode.torch
+                              ? Colors.amber.shade200
+                              : Colors.white,
+                        ),
+                      ],
                     ),
                   )
                 ],
@@ -70,6 +107,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
     );
 
     await _cameraController.initialize();
+
+    _flashMode = _cameraController.value.flashMode;
   }
 
   Future<void> initPermissions() async {
@@ -95,6 +134,12 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
   void initState() {
     super.initState();
     initPermissions();
+  }
+
+  Future<void> _setFlashMode(FlashMode newFlashMode) async {
+    await _cameraController.setFlashMode(newFlashMode);
+    _flashMode = newFlashMode;
+    setState(() {});
   }
 
   Future<void> _toggleSelfieMode() async {
