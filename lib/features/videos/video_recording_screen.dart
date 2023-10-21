@@ -12,9 +12,9 @@ class VideoRecordingScreen extends StatefulWidget {
 }
 
 class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
+  late CameraController _cameraController;
   bool _hasPermission = false;
-
-  late final CameraController _cameraController;
+  bool _isSelfieMode = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: !_hasPermission || !_cameraController.value.isInitialized
-            ? Column(
+            ? const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -42,6 +42,15 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
                 alignment: Alignment.center,
                 children: [
                   CameraPreview(_cameraController),
+                  Positioned(
+                    top: Sizes.size36,
+                    left: Sizes.size20,
+                    child: IconButton(
+                      onPressed: _toggleSelfieMode,
+                      icon: const Icon(Icons.cameraswitch),
+                      color: Colors.white,
+                    ),
+                  )
                 ],
               ),
       ),
@@ -56,7 +65,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
     }
 
     _cameraController = CameraController(
-      cameras[0],
+      cameras[_isSelfieMode ? 1 : 0],
       ResolutionPreset.ultraHigh,
     );
 
@@ -86,5 +95,12 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
   void initState() {
     super.initState();
     initPermissions();
+  }
+
+  Future<void> _toggleSelfieMode() async {
+    _isSelfieMode = !_isSelfieMode;
+
+    await initCamera();
+    setState(() {});
   }
 }
