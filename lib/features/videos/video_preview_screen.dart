@@ -2,14 +2,18 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPreviewScreen extends StatefulWidget {
   final XFile video;
+  final bool isPicked;
 
   const VideoPreviewScreen({
     super.key,
     required this.video,
+    required this.isPicked,
   });
 
   @override
@@ -18,6 +22,8 @@ class VideoPreviewScreen extends StatefulWidget {
 
 class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
   late final VideoPlayerController _videoPlayerController;
+  bool _saveVideo = false;
+
   @override
   void initState() {
     super.initState();
@@ -26,11 +32,26 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
   }
 
   @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text("Preview video"),
+        actions: [
+          if (!widget.isPicked)
+            IconButton(
+              onPressed: _saveToGallery,
+              icon: FaIcon(_saveVideo
+                  ? FontAwesomeIcons.check
+                  : FontAwesomeIcons.download),
+            ),
+        ],
       ),
       body: _videoPlayerController.value.isInitialized
           ? VideoPlayer(_videoPlayerController)
@@ -48,6 +69,19 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
     await _videoPlayerController.setLooping(true);
 
     await _videoPlayerController.play();
+
+    setState(() {});
+  }
+
+  Future<void> _saveToGallery() async {
+    if (_saveVideo) return;
+
+    await GallerySaver.saveVideo(
+      widget.video.path,
+      albumName: "TikTok Clone",
+    );
+
+    _saveVideo = true;
 
     setState(() {});
   }
