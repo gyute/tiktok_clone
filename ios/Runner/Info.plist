@@ -26,6 +26,12 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>camera</string>
+	<key>NSContactsUsageDescription</key>
+	<string>contacts</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>microphone</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -45,20 +51,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-  <key>NSCameraUsageDescription</key>
-  <string>your usage description here</string>
-  <key>NSMicrophoneUsageDescription</key>
-  <string>your usage description here</string>
-  <!-- Permission options for the `camera` group -->
-  <key>NSCameraUsageDescription</key>
-  <string>camera</string>
-
-  <!-- Permission options for the `contacts` group -->
-  <key>NSContactsUsageDescription</key>
-  <string>contacts</string>
-
-  <!-- Permission options for the `microphone` group -->
-  <key>NSMicrophoneUsageDescription</key>
-  <string>microphone</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>video save</string>
 </dict>
 </plist>
