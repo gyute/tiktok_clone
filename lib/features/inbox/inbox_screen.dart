@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/inbox/activity_screen.dart';
 import 'package:tiktok_clone/features/inbox/chats_screen.dart';
 
-class InboxScreen extends StatelessWidget {
+class InboxScreen extends StatefulWidget {
   const InboxScreen({super.key});
 
+  @override
+  State<InboxScreen> createState() => _InboxScreenState();
+}
+
+class _InboxScreenState extends State<InboxScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +21,7 @@ class InboxScreen extends StatelessWidget {
         title: const Text("Inbox"),
         actions: [
           IconButton(
-            onPressed: () => _onDmPressed(context),
+            onPressed: () => _onDmPressed(),
             icon: const FaIcon(
               FontAwesomeIcons.paperPlane,
             ),
@@ -25,7 +31,7 @@ class InboxScreen extends StatelessWidget {
       body: ListView(
         children: [
           ListTile(
-            onTap: () => _onActivityTap(context),
+            onTap: () => _onActivityTap(),
             title: const Text(
               "Activity",
               style: TextStyle(
@@ -82,19 +88,11 @@ class InboxScreen extends StatelessWidget {
     );
   }
 
-  void _onActivityTap(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const ActivityScreen(),
-      ),
-    );
+  void _onActivityTap() {
+    context.pushNamed(ActivityScreen.routeName);
   }
 
-  void _onDmPressed(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const ChatScreen(),
-      ),
-    );
+  void _onDmPressed() {
+    context.pushNamed(ChatScreen.routeName);
   }
 }
