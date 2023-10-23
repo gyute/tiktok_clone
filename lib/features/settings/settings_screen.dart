@@ -21,8 +21,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: ListView(
         children: [
-          AnimatedBuilder(
-            animation: videoConfig,
+          ListenableBuilder(
+            listenable: videoConfig,
             builder: (context, child) => SwitchListTile.adaptive(
               value: videoConfig.autoMute,
               onChanged: (value) {
