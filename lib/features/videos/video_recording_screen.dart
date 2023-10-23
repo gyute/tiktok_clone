@@ -69,6 +69,13 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                 children: [
                   if (!_noCamera && _cameraController.value.isInitialized)
                     CameraPreview(_cameraController),
+                  const Positioned(
+                    top: Sizes.size40,
+                    left: Sizes.size20,
+                    child: CloseButton(
+                      color: Colors.white,
+                    ),
+                  ),
                   if (!_noCamera)
                     Positioned(
                       top: Sizes.size36,
@@ -120,7 +127,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                     width: MediaQuery.of(context).size.width,
                     child: Row(
                       children: [
-                        Spacer(),
+                        const Spacer(),
                         GestureDetector(
                           onTapDown: _startRecording,
                           onTapUp: (details) => _stopRecording(),
@@ -155,7 +162,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                             alignment: Alignment.center,
                             child: IconButton(
                               onPressed: _onPickVideoPressed,
-                              icon: FaIcon(
+                              icon: const FaIcon(
                                 FontAwesomeIcons.image,
                                 color: Colors.white,
                               ),
