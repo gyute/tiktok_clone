@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/intl_generated.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tiktok_clone/common/widgets/main_navigation/widgets/video_configuraion/video_config.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/videos/repositories/video_playback_config_repository.dart';
+import 'package:tiktok_clone/features/videos/view_models/playback_config_view_model.dart';
 import 'package:tiktok_clone/router.dart';
 
 void main() async {
@@ -21,7 +24,19 @@ void main() async {
 
   GoRouter.optionURLReflectsImperativeAPIs = true;
 
-  runApp(const TikTokApp());
+  final preferences = await SharedPreferences.getInstance();
+  final repository = VideoPlaybackConfigRepository(preferences);
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => PlaybackConfigViewModel(repository),
+        ),
+      ],
+      child: const TikTokApp(),
+    ),
+  );
 }
 
 class TikTokApp extends StatelessWidget {
