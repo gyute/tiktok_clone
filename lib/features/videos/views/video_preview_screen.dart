@@ -25,24 +25,11 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
   bool _saveVideo = false;
 
   @override
-  void initState() {
-    super.initState();
-
-    _initVideo();
-  }
-
-  @override
-  void dispose() {
-    _videoPlayerController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text("Preview video"),
+        title: const Text("Preview video"),
         actions: [
           if (!widget.isPicked)
             IconButton(
@@ -57,6 +44,19 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
           ? VideoPlayer(_videoPlayerController)
           : null,
     );
+  }
+
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _initVideo();
   }
 
   Future<void> _initVideo() async {

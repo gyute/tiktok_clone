@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/videos/video_preview_screen.dart';
+import 'package:tiktok_clone/features/videos/views/video_preview_screen.dart';
 
 class VideoRecordingScreen extends StatefulWidget {
   static const String routeName = "postVideo";
@@ -178,6 +178,29 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     );
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (_noCamera) return;
+    if (!_hasPermission) return;
+    if (!_cameraController.value.isInitialized) return;
+
+    if (state == AppLifecycleState.inactive) {
+      _cameraController.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      initCamera();
+    }
+  }
+
+  @override
+  void dispose() {
+    _buttonAnimationController.dispose();
+    _progressAnimationController.dispose();
+    if (!_noCamera) {
+      _cameraController.dispose();
+    }
+    super.dispose();
+  }
+
   Future<void> initCamera() async {
     final cameras = await availableCameras();
 
@@ -244,6 +267,25 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     );
   }
 
+  Future<void> _onPickVideoPressed() async {
+    final video = await ImagePicker().pickVideo(
+      source: ImageSource.gallery,
+    );
+
+    if (video == null) return;
+
+    if (!context.mounted) return;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VideoPreviewScreen(
+          video: video,
+          isPicked: true,
+        ),
+      ),
+    );
+  }
+
   Future<void> _setFlashMode(FlashMode newFlashMode) async {
     await _cameraController.setFlashMode(newFlashMode);
     _flashMode = newFlashMode;
@@ -283,47 +325,5 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     _isSelfieMode = !_isSelfieMode;
     await initCamera();
     setState(() {});
-  }
-
-  @override
-  void dispose() {
-    _buttonAnimationController.dispose();
-    _progressAnimationController.dispose();
-    if (!_noCamera) {
-      _cameraController.dispose();
-    }
-    super.dispose();
-  }
-
-  Future<void> _onPickVideoPressed() async {
-    final video = await ImagePicker().pickVideo(
-      source: ImageSource.gallery,
-    );
-
-    if (video == null) return;
-
-    if (!context.mounted) return;
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => VideoPreviewScreen(
-          video: video,
-          isPicked: true,
-        ),
-      ),
-    );
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (_noCamera) return;
-    if (!_hasPermission) return;
-    if (!_cameraController.value.isInitialized) return;
-
-    if (state == AppLifecycleState.inactive) {
-      _cameraController.dispose();
-    } else if (state == AppLifecycleState.resumed) {
-      initCamera();
-    }
   }
 }
