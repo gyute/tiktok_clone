@@ -30,7 +30,6 @@ class _VideoPostState extends State<VideoPost>
   bool _isPaused = false;
   final Duration _animationDuration = const Duration(milliseconds: 200);
   late final AnimationController _animationController;
-  bool _autoMute = videoConfig.autoMute;
 
   @override
   Widget build(BuildContext context) {
@@ -79,12 +78,17 @@ class _VideoPostState extends State<VideoPost>
             left: Sizes.size20,
             top: Sizes.size40,
             child: IconButton(
-              onPressed: videoConfig.toggleAutoMute,
-              icon: FaIcon(
-                _autoMute
-                    ? FontAwesomeIcons.volumeOff
-                    : FontAwesomeIcons.volumeHigh,
-                color: Colors.white,
+              onPressed: () {
+                videoConfig.value = !videoConfig.value;
+              },
+              icon: ValueListenableBuilder(
+                valueListenable: videoConfig,
+                builder: (context, value, child) => FaIcon(
+                  value
+                      ? FontAwesomeIcons.volumeOff
+                      : FontAwesomeIcons.volumeHigh,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -171,12 +175,6 @@ class _VideoPostState extends State<VideoPost>
       duration: _animationDuration,
     );
     _animationController.addListener(() {});
-
-    videoConfig.addListener(() {
-      setState(() {
-        _autoMute = videoConfig.autoMute;
-      });
-    });
   }
 
   void _initVideoPlayer() async {
