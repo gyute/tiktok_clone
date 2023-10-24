@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/intl_generated.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/repositories/video_playback_config_repository.dart';
@@ -28,11 +28,11 @@ void main() async {
   final repository = VideoPlaybackConfigRepository(preferences);
 
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => PlaybackConfigViewModel(repository),
-        ),
+    ProviderScope(
+      overrides: [
+        playbackConfigProvider.overrideWith(
+          () => PlaybackConfigViewModel(repository),
+        )
       ],
       child: const TikTokApp(),
     ),

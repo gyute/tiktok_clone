@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/intl_generated.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/view_models/playback_config_view_model.dart';
@@ -11,7 +11,7 @@ import 'package:tiktok_clone/features/videos/views/widgets/video_comments.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class VideoPost extends StatefulWidget {
+class VideoPost extends ConsumerStatefulWidget {
   final Function onVideoFinished;
   final int index;
 
@@ -22,10 +22,10 @@ class VideoPost extends StatefulWidget {
   });
 
   @override
-  State<VideoPost> createState() => _VideoPostState();
+  VideoPostState createState() => VideoPostState();
 }
 
-class _VideoPostState extends State<VideoPost>
+class VideoPostState extends ConsumerState<VideoPost>
     with SingleTickerProviderStateMixin {
   late VideoPlayerController _videoPlayerController;
   bool _isPaused = false;
@@ -35,6 +35,10 @@ class _VideoPostState extends State<VideoPost>
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(playbackConfigProvider, (_, __) {
+      _onPlaybackConfigChanged();
+    });
+
     return VisibilityDetector(
       key: Key("${widget.index}"),
       onVisibilityChanged: _onVisibilityChanged,
@@ -173,14 +177,10 @@ class _VideoPostState extends State<VideoPost>
       duration: _animationDuration,
     );
     _animationController.addListener(() {});
-
-    context
-        .read<PlaybackConfigViewModel>()
-        .addListener(_onPlaybackConfigChanged);
   }
 
   void _initVideoPlayer() async {
-    _isMuted = context.read<PlaybackConfigViewModel>().muted;
+    _isMuted = ref.read(playbackConfigProvider).muted;
 
     _videoPlayerController =
         VideoPlayerController.asset("assets/videos/video.mp4")
@@ -215,7 +215,7 @@ class _VideoPostState extends State<VideoPost>
   void _onPlaybackConfigChanged() {
     if (!mounted) return;
 
-    _isMuted = context.read<PlaybackConfigViewModel>().muted;
+    _isMuted = ref.read(playbackConfigProvider).muted;
 
     if (_isMuted) {
       _videoPlayerController.setVolume(0);
@@ -253,8 +253,7 @@ class _VideoPostState extends State<VideoPost>
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying) {
-      final autoplay = context.read<PlaybackConfigViewModel>().autoplay;
-      if (autoplay) {
+      if (ref.read(playbackConfigProvider).autoplay) {
         _videoPlayerController.play();
       }
     }
