@@ -32,6 +32,7 @@ class _VideoPostState extends State<VideoPost>
   bool _isPaused = false;
   final Duration _animationDuration = const Duration(milliseconds: 200);
   late final AnimationController _animationController;
+  late bool _isMuted;
 
   @override
   Widget build(BuildContext context) {
@@ -81,16 +82,12 @@ class _VideoPostState extends State<VideoPost>
             top: Sizes.size40,
             child: IconButton(
               icon: FaIcon(
-                context.watch<PlaybackConfigViewModel>().muted
+                _isMuted
                     ? FontAwesomeIcons.volumeOff
                     : FontAwesomeIcons.volumeHigh,
                 color: Colors.white,
               ),
-              onPressed: () {
-                context.read<PlaybackConfigViewModel>().setMuted(
-                      !context.read<PlaybackConfigViewModel>().muted,
-                    );
-              },
+              onPressed: _toggleMuteLocally,
             ),
           ),
           const Positioned(
@@ -213,6 +210,20 @@ class _VideoPostState extends State<VideoPost>
     _onTogglePause();
   }
 
+  void _onPlaybackConfigChanged() {
+    if (!mounted) return;
+
+    _isMuted = context.read<PlaybackConfigViewModel>().muted;
+
+    if (_isMuted) {
+      _videoPlayerController.setVolume(0);
+    } else {
+      _videoPlayerController.setVolume(1);
+    }
+
+    setState(() {});
+  }
+
   void _onTogglePause() {
     if (_videoPlayerController.value.isPlaying) {
       _videoPlayerController.pause();
@@ -250,14 +261,16 @@ class _VideoPostState extends State<VideoPost>
     }
   }
 
-  void _onPlaybackConfigChanged() {
-    if (!mounted) return;
-    final muted = context.read<PlaybackConfigViewModel>().muted;
+  void _toggleMuteLocally() {
+    final switchedVolume = 1.0 - _videoPlayerController.value.volume;
+    _videoPlayerController.setVolume(switchedVolume);
 
-    if (muted) {
-      _videoPlayerController.setVolume(0);
-    } else {
-      _videoPlayerController.setVolume(1);
-    }
+    setState(() {
+      if (switchedVolume == 1.0) {
+        _isMuted = false;
+      } else {
+        _isMuted = true;
+      }
+    });
   }
 }
