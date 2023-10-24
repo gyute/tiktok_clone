@@ -180,9 +180,12 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _initVideoPlayer() async {
+    _isMuted = context.read<PlaybackConfigViewModel>().muted;
+
     _videoPlayerController =
         VideoPlayerController.asset("assets/videos/video.mp4")
           ..setLooping(true)
+          ..setVolume(_isMuted ? 0 : 1)
           ..initialize().then((_) {
             setState(() {});
           });
