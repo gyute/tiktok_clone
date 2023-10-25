@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "158519996921",
+    "project_id": "tiktok-gt",
+    "storage_bucket": "tiktok-gt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158519996921:android:7c998f7b89b1064a7b0d28",
+        "android_client_info": {
+          "package_name": "com.example.tiktok_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5O8yQIcRRk3Z7BsoYfCzF47xJw5sNO8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
