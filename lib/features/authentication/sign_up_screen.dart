@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/intl_generated.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/login_screen.dart';
 import 'package:tiktok_clone/features/authentication/username_screen.dart';
+import 'package:tiktok_clone/features/authentication/view_model/social_auth_view_model.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok_clone/utils.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends ConsumerWidget {
   static const routeURL = "/";
   static const routeName = "signUp";
   const SignUpScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -57,9 +59,13 @@ class SignUpScreen extends StatelessWidget {
                     text: AppLocalizations.of(context)!.emailPasswordButton),
               ),
               Gaps.v16,
-              AuthButton(
-                  icon: const FaIcon(FontAwesomeIcons.apple),
-                  text: AppLocalizations.of(context)!.appleButton),
+              GestureDetector(
+                onTap: () =>
+                    ref.read(socialAuthProvider.notifier).githubSignIn(context),
+                child: const AuthButton(
+                    icon: FaIcon(FontAwesomeIcons.github),
+                    text: 'Continue with Github'),
+              ),
             ],
           ),
         ),
@@ -96,7 +102,7 @@ class SignUpScreen extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => UsernameScreen(),
+        builder: (context) => const UsernameScreen(),
       ),
     );
   }
