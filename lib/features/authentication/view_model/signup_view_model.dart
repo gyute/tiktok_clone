@@ -17,7 +17,7 @@ class SignUpViewModel extends AsyncNotifier<void> {
     final form = ref.read(signUpForm);
 
     state = await AsyncValue.guard(
-      () async => await _authenticationRepository.signUp(
+      () async => await _authenticationRepository.emailSignUp(
         form["email"],
         form["password"],
       ),
