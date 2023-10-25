@@ -62,7 +62,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                 TextFormField(
                     onSaved: (newValue) {
                       if (newValue != null) {
-                        formData['email'] = newValue;
+                        formData['password'] = newValue;
                       }
                     },
                     decoration: InputDecoration(
