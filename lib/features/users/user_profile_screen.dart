@@ -5,6 +5,7 @@ import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/settings/settings_screen.dart';
 import 'package:tiktok_clone/features/users/view_models/user_view_models.dart';
+import 'package:tiktok_clone/features/users/widgets/avatar.dart';
 import 'package:tiktok_clone/features/users/widgets/persistent_tabbar.dart';
 
 class UserProfileScreen extends ConsumerStatefulWidget {
@@ -56,12 +57,10 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                         child: Column(
                           children: [
                             Gaps.v20,
-                            CircleAvatar(
-                              radius: 50,
-                              foregroundImage: const NetworkImage(
-                                "https://avatars.githubusercontent.com/u/15077948?v=4",
-                              ),
-                              child: Text(data.name),
+                            Avatar(
+                              uid: data.uid,
+                              name: data.name,
+                              hasAvatar: data.hasAvatar,
                             ),
                             Gaps.v20,
                             Row(
