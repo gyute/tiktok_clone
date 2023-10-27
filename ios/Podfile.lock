@@ -641,6 +641,10 @@ PODS:
     - firebase_core
     - Flutter
     - nanopb (< 2.30910.0, >= 2.30908.0)
+  - cloud_functions (4.5.2):
+    - Firebase/Functions (= 10.16.0)
+    - firebase_core
+    - Flutter
   - Firebase/Auth (10.16.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 10.16.0)
@@ -649,6 +653,9 @@ PODS:
   - Firebase/Firestore (10.16.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 10.16.0)
+  - Firebase/Functions (10.16.0):
+    - Firebase/CoreOnly
+    - FirebaseFunctions (~> 10.16.0)
   - Firebase/Storage (10.16.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 10.16.0)
@@ -693,6 +700,16 @@ PODS:
     - "gRPC-C++ (~> 1.49.1)"
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseFunctions (10.16.0):
+    - FirebaseAppCheckInterop (~> 10.10)
+    - FirebaseAuthInterop (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseCoreExtension (~> 10.0)
+    - FirebaseMessagingInterop (~> 10.0)
+    - FirebaseSharedSwift (~> 10.0)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
+  - FirebaseMessagingInterop (10.16.0)
+  - FirebaseSharedSwift (10.16.0)
   - FirebaseStorage (10.16.0):
     - FirebaseAppCheckInterop (~> 10.0)
     - FirebaseAuthInterop (~> 10.0)
@@ -804,6 +821,7 @@ PODS:
 DEPENDENCIES:
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - cloud_functions (from `.symlinks/plugins/cloud_functions/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
@@ -827,6 +845,9 @@ SPEC REPOS:
     - FirebaseCoreExtension
     - FirebaseCoreInternal
     - FirebaseFirestore
+    - FirebaseFunctions
+    - FirebaseMessagingInterop
+    - FirebaseSharedSwift
     - FirebaseStorage
     - GoogleUtilities
     - "gRPC-C++"
@@ -842,6 +863,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/camera_avfoundation/ios"
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  cloud_functions:
+    :path: ".symlinks/plugins/cloud_functions/ios"
   firebase_auth:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
@@ -868,6 +891,7 @@ SPEC CHECKSUMS:
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   camera_avfoundation: 3125e8cd1a4387f6f31c6c63abb8a55892a9eeeb
   cloud_firestore: 843f8a06ac49a1177b73a2a2475cc3918593478e
+  cloud_functions: 784f85b51d386b7546960f1f168fa3df0675c21e
   Firebase: 25899099b77d255a636e3579c3d9dce10ec150d5
   firebase_auth: 015dab4ffe9e4d97f7d84a3373ad4c8a7712c5c7
   firebase_core: 2e0e89436a00b664a23bebb08859e5fede7215e9
@@ -879,6 +903,9 @@ SPEC CHECKSUMS:
   FirebaseCoreExtension: 2dbc745b337eb99d2026a7a309ae037bd873f45e
   FirebaseCoreInternal: 26233f705cc4531236818a07ac84d20c333e505a
   FirebaseFirestore: 17bd5c8a0ea4be0fcae5a6f95f817983623adb4a
+  FirebaseFunctions: f7c3a837beb8d747a1949b167fb18d219f281c7c
+  FirebaseMessagingInterop: 9399279d03dfdd931c5e90358263d6a16a539a7b
+  FirebaseSharedSwift: 82b618801ddd76ea2ab54c5746bcd48854272232
   FirebaseStorage: d664834746c0274d267072c6bfa100960f90654a
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   gallery_saver: 9fc173c9f4fcc48af53b2a9ebea1b643255be542
