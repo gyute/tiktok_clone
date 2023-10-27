@@ -32,7 +32,6 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
           ),
           data: (videos) {
             _itemCount = videos.length;
-
             return RefreshIndicator(
               displacement: 50,
               edgeOffset: 20,
@@ -45,7 +44,6 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
                 itemCount: videos.length,
                 itemBuilder: (context, index) {
                   final videoData = videos[index];
-
                   return VideoPost(
                     onVideoFinished: _onVideoFinished,
                     index: index,
@@ -77,10 +75,7 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
   }
 
   Future<void> _onRefresh() {
-    // TODO: `Future.delayed()` is a dummy
-    return Future.delayed(
-      const Duration(seconds: 3),
-    );
+    return ref.watch(timelineProvider.notifier).refresh();
   }
 
   void _onVideoFinished() {
