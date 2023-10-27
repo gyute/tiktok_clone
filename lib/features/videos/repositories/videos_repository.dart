@@ -11,6 +11,13 @@ class VideosRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
+  Future<QuerySnapshot<Map<String, dynamic>>> fetchVideos() {
+    return _firestore
+        .collection("videos")
+        .orderBy("createdAt", descending: true)
+        .get();
+  }
+
   Future<void> saveVideo(VideoModel data) async {
     await _firestore.collection("videos").add(data.toJson());
   }

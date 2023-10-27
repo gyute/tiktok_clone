@@ -26,11 +26,11 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
           ),
           error: (error, stackTrace) => Center(
             child: Text(
-              "Could not load vidoes: $error",
+              "Could not load videos: $error",
               style: const TextStyle(color: Colors.white),
             ),
           ),
-          data: (vidoes) => RefreshIndicator(
+          data: (videos) => RefreshIndicator(
             displacement: 50,
             edgeOffset: 20,
             color: Theme.of(context).primaryColor,
@@ -39,9 +39,16 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
               controller: _pageController,
               scrollDirection: Axis.vertical,
               onPageChanged: _onPageChanged,
-              itemCount: vidoes.length,
-              itemBuilder: (context, index) =>
-                  VideoPost(onVideoFinished: _onVideoFinished, index: index),
+              itemCount: videos.length,
+              itemBuilder: (context, index) {
+                final videoData = videos[index];
+
+                return VideoPost(
+                  onVideoFinished: _onVideoFinished,
+                  index: index,
+                  videoData: videoData,
+                );
+              },
             ),
           ),
         );
