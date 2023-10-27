@@ -1,6 +1,9 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 
+// Cloud Functions Documentation
+// https://firebase.google.com/docs/functions/firestore-events?hl=en&authuser=4&gen=1st
+
 admin.initializeApp();
 
 export const onVideoCreated = functions.firestore
