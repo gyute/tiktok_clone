@@ -11,11 +11,19 @@ class VideosRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  Future<QuerySnapshot<Map<String, dynamic>>> fetchVideos() {
-    return _firestore
+  Future<QuerySnapshot<Map<String, dynamic>>> fetchVideos({
+    int? lastItemCreatedAt,
+  }) {
+    final query = _firestore
         .collection("videos")
         .orderBy("createdAt", descending: true)
-        .get();
+        .limit(2);
+
+    if (lastItemCreatedAt == null) {
+      return query.get();
+    } else {
+      return query.startAfter([lastItemCreatedAt]).get();
+    }
   }
 
   Future<void> saveVideo(VideoModel data) async {
