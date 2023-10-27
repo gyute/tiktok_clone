@@ -26,6 +26,21 @@ class VideosRepository {
     }
   }
 
+  Future<void> likeVideo(String videoId, String userId) async {
+    final likesId = "${userId}000$videoId";
+    final query = _firestore.collection("likes").doc(likesId);
+
+    final like = await query.get();
+
+    if (!like.exists) {
+      await query.set(
+        {
+          "createdAt": DateTime.now().millisecondsSinceEpoch,
+        },
+      );
+    }
+  }
+
   Future<void> saveVideo(VideoModel data) async {
     await _firestore.collection("videos").add(data.toJson());
   }

@@ -7,6 +7,7 @@ import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/models/video_model.dart';
 import 'package:tiktok_clone/features/videos/view_models/playback_config_view_model.dart';
+import 'package:tiktok_clone/features/videos/view_models/video_post_view_models.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_button.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_comments.dart';
 import 'package:video_player/video_player.dart';
@@ -105,7 +106,7 @@ class VideoPostState extends ConsumerState<VideoPost>
               children: [
                 Text(
                   "@${widget.videoData.creator}",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: Sizes.size16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -114,7 +115,7 @@ class VideoPostState extends ConsumerState<VideoPost>
                 Gaps.v10,
                 Text(
                   widget.videoData.description,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: Sizes.size12,
                     color: Colors.white,
                   ),
@@ -136,10 +137,13 @@ class VideoPostState extends ConsumerState<VideoPost>
                   child: Text(widget.videoData.creator),
                 ),
                 Gaps.v24,
-                VideoButton(
-                  icon: FontAwesomeIcons.solidHeart,
-                  text: AppLocalizations.of(context)!
-                      .likeCount(widget.videoData.likes),
+                GestureDetector(
+                  onTap: _onLikeTap,
+                  child: VideoButton(
+                    icon: FontAwesomeIcons.solidHeart,
+                    text: AppLocalizations.of(context)!
+                        .likeCount(widget.videoData.likes),
+                  ),
                 ),
                 Gaps.v24,
                 GestureDetector(
@@ -216,6 +220,10 @@ class VideoPostState extends ConsumerState<VideoPost>
       builder: (context) => const VideoComments(),
     );
     _onTogglePause();
+  }
+
+  void _onLikeTap() {
+    ref.read(videoPostProvider(widget.videoData.id).notifier).likeVideo();
   }
 
   void _onPlaybackConfigChanged() {
