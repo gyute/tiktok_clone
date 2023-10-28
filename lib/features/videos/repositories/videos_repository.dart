@@ -26,7 +26,12 @@ class VideosRepository {
     }
   }
 
-  Future<void> likeVideo(String videoId, String userId) async {
+  Future<void> saveVideo(VideoModel data) async {
+    await _firestore.collection("videos").add(data.toJson());
+  }
+
+  Future<void> toggleLikeVideo(String videoId, String userId) async {
+    // `like Id` is also used as an ID in `Cloud functions`
     final likesId = "${userId}000$videoId";
     final query = _firestore.collection("likes").doc(likesId);
 
@@ -38,11 +43,9 @@ class VideosRepository {
           "createdAt": DateTime.now().millisecondsSinceEpoch,
         },
       );
+    } else {
+      await query.delete();
     }
-  }
-
-  Future<void> saveVideo(VideoModel data) async {
-    await _firestore.collection("videos").add(data.toJson());
   }
 
   UploadTask uploadVideoFile(File video, String uid) {

@@ -223,7 +223,7 @@ class VideoPostState extends ConsumerState<VideoPost>
   }
 
   void _onLikeTap() {
-    ref.read(videoPostProvider(widget.videoData.id).notifier).likeVideo();
+    ref.read(videoPostProvider(widget.videoData.id).notifier).toggleLikeVideo();
   }
 
   void _onPlaybackConfigChanged() {
