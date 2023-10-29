@@ -94,7 +94,7 @@ class SignUpScreen extends ConsumerWidget {
                 child: GestureDetector(
                   onTap: () => _onLoginTap(context),
                   child: Text(
-                    AppLocalizations.of(context)!.login("Martian"),
+                    AppLocalizations.of(context)!.login,
                     style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w600),

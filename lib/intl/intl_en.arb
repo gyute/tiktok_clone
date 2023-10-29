@@ -1,16 +1,11 @@
 {
-  "signUpTitle": "Sign up for {nameOfTheApp}\n{when}",
+  "signUpTitle": "Sign up for {nameOfTheApp}",
     "@signUpTitle": {
       "description": "The title people seel when they open the app for the first time.",
       "placeholders": {
         "nameOfTheApp": {
           "type": "String",
           "example": "TikTok"
-        },
-        "when": {
-          "type": "DateTime",
-          "format": "M / d",
-          "isCustomDateFormat": "true"
         }
       }
     },
@@ -28,7 +23,7 @@
   "emailPasswordButton": "Use email & password",
   "appleButton": "Continue with Apple",
   "alreadyHaveAnAccount": "Already have an account?",
-  "login": "Log in {gender, select, male{sir} female{madam} other{human}}",
+  "login": "Log in",
   "likeCount": "{value}",
   "@likeCount": {
     "decoration": "Anything you want",
