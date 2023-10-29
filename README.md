@@ -1,16 +1,9 @@
-# tiktok_clone
+# TikTok clone
 
-A new Flutter project.
+Project to create a TikTok clone with Flutter.
 
-## Getting Started
+## About
 
-This project is a starting point for a Flutter application.
+- This project supports iOS, Android, and Web, and is basically tested on iOS.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [The web app is currently hosted on Firebase.](https://tiktok-gt.web.app) but, the app has only granted read permission for security reasons. If you would like to test it, please contact me.
