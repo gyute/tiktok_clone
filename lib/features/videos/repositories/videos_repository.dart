@@ -50,7 +50,7 @@ class VideosRepository {
 
   UploadTask uploadVideoFile(File video, String uid) {
     final fileName = DateTime.now().millisecondsSinceEpoch.toString();
-    final fileRef = _storage.ref().child("/video/$uid/$fileName");
+    final fileRef = _storage.ref().child("/video/$uid/$fileName.mp4");
 
     return fileRef.putFile(video);
   }

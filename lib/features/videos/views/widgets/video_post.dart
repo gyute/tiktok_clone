@@ -197,7 +197,7 @@ class VideoPostState extends ConsumerState<VideoPost>
     _isMuted = ref.read(playbackConfigProvider).muted;
 
     _videoPlayerController =
-        VideoPlayerController.asset("assets/videos/video.mp4")
+        VideoPlayerController.networkUrl(Uri.parse(widget.videoData.fileUrl))
           ..setLooping(true)
           ..setVolume(_isMuted ? 0 : 1)
           ..initialize().then((_) {
