@@ -1,7 +1,16 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/features/videos/view_models/timeline_view_model.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_post.dart';
+
+class MouseDraggableScrollBehavior extends MaterialScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => <PointerDeviceKind>{
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
+}
 
 class VideoTimelineScreen extends ConsumerStatefulWidget {
   const VideoTimelineScreen({super.key});
@@ -37,19 +46,22 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
               edgeOffset: 20,
               color: Theme.of(context).primaryColor,
               onRefresh: _onRefresh,
-              child: PageView.builder(
-                controller: _pageController,
-                scrollDirection: Axis.vertical,
-                onPageChanged: _onPageChanged,
-                itemCount: videos.length,
-                itemBuilder: (context, index) {
-                  final videoData = videos[index];
-                  return VideoPost(
-                    onVideoFinished: _onVideoFinished,
-                    index: index,
-                    videoData: videoData,
-                  );
-                },
+              child: ScrollConfiguration(
+                behavior: MouseDraggableScrollBehavior(),
+                child: PageView.builder(
+                  controller: _pageController,
+                  scrollDirection: Axis.vertical,
+                  onPageChanged: _onPageChanged,
+                  itemCount: videos.length,
+                  itemBuilder: (context, index) {
+                    final videoData = videos[index];
+                    return VideoPost(
+                      onVideoFinished: _onVideoFinished,
+                      index: index,
+                      videoData: videoData,
+                    );
+                  },
+                ),
               ),
             );
           },
