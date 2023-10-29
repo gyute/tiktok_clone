@@ -52,19 +52,26 @@ class SignUpScreen extends ConsumerWidget {
                 ),
               ),
               Gaps.v40,
-              GestureDetector(
-                onTap: () => _onEmailTap(context),
-                child: AuthButton(
-                    icon: const FaIcon(FontAwesomeIcons.user),
-                    text: AppLocalizations.of(context)!.emailPasswordButton),
+              Tooltip(
+                message: "Use email & password",
+                child: GestureDetector(
+                  onTap: () => _onEmailTap(context),
+                  child: AuthButton(
+                      icon: const FaIcon(FontAwesomeIcons.user),
+                      text: AppLocalizations.of(context)!.emailPasswordButton),
+                ),
               ),
               Gaps.v16,
-              GestureDetector(
-                onTap: () =>
-                    ref.read(socialAuthProvider.notifier).githubSignIn(context),
-                child: const AuthButton(
-                    icon: FaIcon(FontAwesomeIcons.github),
-                    text: 'Continue with Github'),
+              Tooltip(
+                message: "Use Github account",
+                child: GestureDetector(
+                  onTap: () => ref
+                      .read(socialAuthProvider.notifier)
+                      .githubSignIn(context),
+                  child: const AuthButton(
+                      icon: FaIcon(FontAwesomeIcons.github),
+                      text: 'Continue with Github'),
+                ),
               ),
             ],
           ),
@@ -82,13 +89,16 @@ class SignUpScreen extends ConsumerWidget {
             children: [
               Text(AppLocalizations.of(context)!.alreadyHaveAnAccount),
               Gaps.h5,
-              GestureDetector(
-                onTap: () => _onLoginTap(context),
-                child: Text(
-                  AppLocalizations.of(context)!.login("Martian"),
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.w600),
+              Tooltip(
+                message: "Log in",
+                child: GestureDetector(
+                  onTap: () => _onLoginTap(context),
+                  child: Text(
+                    AppLocalizations.of(context)!.login("Martian"),
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
             ],
