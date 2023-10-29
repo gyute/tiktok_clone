@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/intl_generated.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -203,9 +202,6 @@ class VideoPostState extends ConsumerState<VideoPost>
           ..initialize().then((_) {
             setState(() {});
           });
-    if (kIsWeb) {
-      await _videoPlayerController.setVolume(0);
-    }
     _videoPlayerController.addListener(_onVideoChage);
   }
 

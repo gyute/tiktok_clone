@@ -9,11 +9,11 @@ class VideoPlaybackConfigRepository {
   VideoPlaybackConfigRepository(this._preferences);
 
   bool isAutoplay() {
-    return _preferences.getBool(_autoplay) ?? false;
+    return _preferences.getBool(_autoplay) ?? true;
   }
 
   bool isMuted() {
-    return _preferences.getBool(_muted) ?? false;
+    return _preferences.getBool(_muted) ?? true;
   }
 
   Future<void> setAutoplay(bool value) async {
