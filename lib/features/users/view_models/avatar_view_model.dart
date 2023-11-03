@@ -6,6 +6,10 @@ import 'package:tiktok_clone/features/authentication/repository/authentication_r
 import 'package:tiktok_clone/features/users/repository/user_repository.dart';
 import 'package:tiktok_clone/features/users/view_models/user_view_models.dart';
 
+final avatarProvider = AsyncNotifierProvider<AvatarViewModel, void>(
+  AvatarViewModel.new,
+);
+
 class AvatarViewModel extends AsyncNotifier<void> {
   late final UserRepository _repository;
 
@@ -27,7 +31,3 @@ class AvatarViewModel extends AsyncNotifier<void> {
     );
   }
 }
-
-final avatarProvider = AsyncNotifierProvider<AvatarViewModel, void>(
-  AvatarViewModel.new,
-);

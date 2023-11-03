@@ -31,17 +31,6 @@ class UserProfileModel {
         link = json["link"],
         hasAvatar = bool.parse(json["hasAvatar"].toString());
 
-  Map<String, String> toJson() {
-    return {
-      "uid": uid,
-      "email": email,
-      "name": name,
-      "bio": bio,
-      "link": link,
-      "hasAvatar": hasAvatar.toString(),
-    };
-  }
-
   UserProfileModel copyWith({
     String? uid,
     String? email,
@@ -58,5 +47,16 @@ class UserProfileModel {
       link: link ?? this.link,
       hasAvatar: hasAvatar ?? this.hasAvatar,
     );
+  }
+
+  Map<String, String> toJson() {
+    return {
+      "uid": uid,
+      "email": email,
+      "name": name,
+      "bio": bio,
+      "link": link,
+      "hasAvatar": hasAvatar.toString(),
+    };
   }
 }

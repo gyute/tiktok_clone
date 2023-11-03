@@ -1,11 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final authRepository = Provider((ref) => AuthenticationRepository());
+
+final authState = StreamProvider(
+  (ref) {
+    final repo = ref.read(authRepository);
+    return repo.authStateChanges();
+  },
+);
+
 class AuthenticationRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  User? get user => _firebaseAuth.currentUser;
   bool get isLoggedIn => user != null;
+  User? get user => _firebaseAuth.currentUser;
 
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
 
@@ -16,8 +25,8 @@ class AuthenticationRepository {
     );
   }
 
-  Future<void> signOut() async {
-    await _firebaseAuth.signOut();
+  Future<void> githubSignIn() async {
+    await _firebaseAuth.signInWithProvider(GithubAuthProvider());
   }
 
   Future<void> signIn(String email, String password) async {
@@ -27,16 +36,7 @@ class AuthenticationRepository {
     );
   }
 
-  Future<void> githubSignIn() async {
-    await _firebaseAuth.signInWithProvider(GithubAuthProvider());
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
   }
 }
-
-final authRepository = Provider((ref) => AuthenticationRepository());
-
-final authState = StreamProvider(
-  (ref) {
-    final repo = ref.read(authRepository);
-    return repo.authStateChanges();
-  },
-);
