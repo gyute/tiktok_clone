@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/authentication/repository/authentication_repository.dart';
 import 'package:tiktok_clone/features/inbox/activity_screen.dart';
 import 'package:tiktok_clone/features/inbox/chat_detail_screen.dart';
+import 'package:tiktok_clone/features/inbox/models/chat_detail_model.dart';
+import 'package:tiktok_clone/features/inbox/repository/chat_detail_repository.dart';
 import 'package:tiktok_clone/utils.dart';
 
-class InboxScreen extends StatefulWidget {
+class InboxScreen extends ConsumerStatefulWidget {
   const InboxScreen({super.key});
 
   @override
-  State<InboxScreen> createState() => _InboxScreenState();
+  ConsumerState<InboxScreen> createState() => _InboxScreenState();
 }
 
-class _InboxScreenState extends State<InboxScreen> {
+class _InboxScreenState extends ConsumerState<InboxScreen> {
   final GlobalKey<SliverAnimatedListState> _listKey =
       GlobalKey<SliverAnimatedListState>();
 
@@ -21,8 +25,20 @@ class _InboxScreenState extends State<InboxScreen> {
 
   final Duration _duration = const Duration(milliseconds: 300);
 
+  final List<ChatDetailModel> chatRooms = [];
+
   @override
   Widget build(BuildContext context) {
+    final user = ref.read(authRepository).user;
+    ref
+        .read(chatDetailRepositoryProvider.notifier)
+        .getChatRooms(user!.uid)
+        .then((chatDetails) {
+      for (var detail in chatDetails) {
+        chatRooms.add(detail);
+      }
+    });
+
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -124,7 +140,7 @@ class _InboxScreenState extends State<InboxScreen> {
                 opacity: animation,
                 child: SizeTransition(
                   sizeFactor: animation,
-                  child: _makeTile(index),
+                  child: _makeTile(index, chatRooms[0]),
                 ),
               );
             },
@@ -144,13 +160,13 @@ class _InboxScreenState extends State<InboxScreen> {
     }
   }
 
-  void _deleteItem(int index) {
+  void _deleteItem(int index, ChatDetailModel detail) {
     if (_listKey.currentState != null) {
       _listKey.currentState!.removeItem(
         index,
         (context, animation) => SizeTransition(
           sizeFactor: animation,
-          child: _makeTile(index),
+          child: _makeTile(index, detail),
         ),
         duration: _duration,
       );
@@ -158,10 +174,10 @@ class _InboxScreenState extends State<InboxScreen> {
     }
   }
 
-  Widget _makeTile(int index) {
+  Widget _makeTile(int index, ChatDetailModel detail) {
     return ListTile(
-      onTap: () => _onChatTap(index),
-      onLongPress: () => _deleteItem(index),
+      onTap: () => _onChatTap(index, detail),
+      onLongPress: () => _deleteItem(index, detail),
       leading: const CircleAvatar(
         radius: 30,
         foregroundImage: NetworkImage(
@@ -195,7 +211,7 @@ class _InboxScreenState extends State<InboxScreen> {
     context.pushNamed(ActivityScreen.routeName);
   }
 
-  void _onChatTap(int index) {
-    context.pushNamed(ChatDetailScreen.routeName);
+  void _onChatTap(int index, ChatDetailModel detail) {
+    context.pushNamed(ChatDetailScreen.routeName, extra: detail);
   }
 }

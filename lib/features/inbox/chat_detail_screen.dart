@@ -4,13 +4,20 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/repository/authentication_repository.dart';
+import 'package:tiktok_clone/features/inbox/models/chat_detail_model.dart';
+import 'package:tiktok_clone/features/inbox/view_models/chat_detail_view_model.dart';
 import 'package:tiktok_clone/features/inbox/view_models/messages_view_model.dart';
 
 class ChatDetailScreen extends ConsumerStatefulWidget {
   static const String routeName = "chatDetail";
   static const String routeURL = "/chatDetail";
 
-  const ChatDetailScreen({super.key});
+  final ChatDetailModel detail;
+
+  const ChatDetailScreen({
+    super.key,
+    required this.detail,
+  });
 
   @override
   ConsumerState<ChatDetailScreen> createState() => _ChatDetailScreenState();
@@ -22,6 +29,9 @@ class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final isLoading = ref.watch(messagesProvider).isLoading;
+
+    // TODO: FOR DEV
+    print("detail.chatRoomsId: ${widget.detail.chatRoomId}");
 
     return Scaffold(
       appBar: AppBar(
@@ -62,7 +72,7 @@ class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
       ),
       body: Stack(
         children: [
-          ref.watch(chatProvider).when(
+          ref.watch(chatProvider(widget.detail.chatRoomId)).when(
                 data: (data) {
                   return ListView.separated(
                     reverse: true,

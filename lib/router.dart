@@ -7,6 +7,7 @@ import 'package:tiktok_clone/features/authentication/repository/authentication_r
 import 'package:tiktok_clone/features/authentication/sign_up_screen.dart';
 import 'package:tiktok_clone/features/inbox/activity_screen.dart';
 import 'package:tiktok_clone/features/inbox/chat_detail_screen.dart';
+import 'package:tiktok_clone/features/inbox/models/chat_detail_model.dart';
 import 'package:tiktok_clone/features/notifications/notifications_provider.dart';
 import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
 import 'package:tiktok_clone/features/videos/views/video_recording_screen.dart';
@@ -57,7 +58,10 @@ final routerProvider = Provider((ref) {
           GoRoute(
             name: ChatDetailScreen.routeName,
             path: ChatDetailScreen.routeURL,
-            builder: (context, state) => const ChatDetailScreen(),
+            builder: (context, state) {
+              ChatDetailModel detail = state.extra as ChatDetailModel;
+              return ChatDetailScreen(detail: detail);
+            },
           ),
           GoRoute(
             name: ActivityScreen.routeName,
