@@ -8,14 +8,9 @@ import 'package:tiktok_clone/features/inbox/view_models/messages_view_model.dart
 
 class ChatDetailScreen extends ConsumerStatefulWidget {
   static const String routeName = "chatDetail";
-  static const String routeURL = ":chatId";
+  static const String routeURL = "/chatDetail";
 
-  final String chatId;
-
-  const ChatDetailScreen({
-    super.key,
-    required this.chatId,
-  });
+  const ChatDetailScreen({super.key});
 
   @override
   ConsumerState<ChatDetailScreen> createState() => _ChatDetailScreenState();
@@ -30,8 +25,8 @@ class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: ListTile(
-          leading: const CircleAvatar(
+        title: const ListTile(
+          leading: CircleAvatar(
             radius: Sizes.size24,
             foregroundImage: NetworkImage(
               "https://avatars.githubusercontent.com/u/15077948?v=4",
@@ -41,13 +36,13 @@ class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
           contentPadding: EdgeInsets.zero,
           horizontalTitleGap: Sizes.size8,
           title: Text(
-            "GT (${widget.chatId})",
-            style: const TextStyle(
+            "GT",
+            style: TextStyle(
               fontWeight: FontWeight.w600,
             ),
           ),
-          subtitle: const Text("Active now"),
-          trailing: const Row(
+          subtitle: Text("Active now"),
+          trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               FaIcon(
