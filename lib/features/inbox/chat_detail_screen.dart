@@ -30,9 +30,6 @@ class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
   Widget build(BuildContext context) {
     final isLoading = ref.watch(messagesProvider).isLoading;
 
-    // TODO: FOR DEV
-    print("detail.chatRoomsId: ${widget.detail.chatRoomId}");
-
     return Scaffold(
       appBar: AppBar(
         title: const ListTile(
@@ -187,7 +184,9 @@ class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
       return;
     }
 
-    ref.read(messagesProvider.notifier).sendMessage(text);
+    ref
+        .read(messagesProvider.notifier)
+        .sendMessage(text, widget.detail.chatRoomId);
     _editingController.text = "";
   }
 }

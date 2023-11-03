@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/features/authentication/repository/authentication_repository.dart';
+import 'package:tiktok_clone/features/inbox/models/chat_detail_model.dart';
 import 'package:tiktok_clone/features/inbox/models/message_model.dart';
 import 'package:tiktok_clone/features/inbox/repository/messages_repository.dart';
 
@@ -17,7 +18,7 @@ class MessagesViewModel extends AsyncNotifier<void> {
     _repository = ref.read(messagesRepository);
   }
 
-  Future<void> sendMessage(String text) async {
+  Future<void> sendMessage(String text, String chatRoomId) async {
     final user = ref.read(authRepository).user;
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
@@ -27,7 +28,7 @@ class MessagesViewModel extends AsyncNotifier<void> {
         createdAt: DateTime.now().millisecondsSinceEpoch,
       );
 
-      _repository.sendMessage(message);
+      _repository.sendMessage(message, chatRoomId);
     });
   }
 }

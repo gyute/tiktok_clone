@@ -7,12 +7,10 @@ final messagesRepository = Provider((ref) => MessagesRepository());
 class MessagesRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> sendMessage(MessageModel message) async {
-    // TODO: FOR DEV
-    const debugChatRoomsId = "48LjK8HLOuONJ8WgTyyb";
+  Future<void> sendMessage(MessageModel message, String chatRoomsId) async {
     await _firestore
         .collection("chat_rooms")
-        .doc(debugChatRoomsId)
+        .doc(chatRoomsId)
         .collection("texts")
         .add(message.toJson());
   }
