@@ -7,6 +7,7 @@ import 'package:tiktok_clone/features/authentication/repository/authentication_r
 import 'package:tiktok_clone/features/inbox/models/chat_detail_model.dart';
 import 'package:tiktok_clone/features/inbox/view_models/chat_detail_view_model.dart';
 import 'package:tiktok_clone/features/inbox/view_models/messages_view_model.dart';
+import 'package:tiktok_clone/utils.dart';
 
 class ChatDetailScreen extends ConsumerStatefulWidget {
   static const String routeName = "chatDetail";
@@ -32,24 +33,40 @@ class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const ListTile(
-          leading: CircleAvatar(
-            radius: Sizes.size24,
-            foregroundImage: NetworkImage(
-              "https://avatars.githubusercontent.com/u/15077948?v=4",
-            ),
-            child: Text("GT"),
-          ),
+        title: ListTile(
+          leading: bool.parse(widget.detail.user2["hasAvatar"].toString())
+              ? CircleAvatar(
+                  radius: Sizes.size24,
+                  foregroundImage: NetworkImage(
+                      "https://firebasestorage.googleapis.com/v0/b/tiktok-gt.appspot.com/o/avatars%2F${widget.detail.user2["uid"]}?alt=media"),
+                  child: Text(
+                    widget.detail.user2["name"],
+                    style: const TextStyle(fontSize: Sizes.size12),
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              : CircleAvatar(
+                  radius: Sizes.size24,
+                  backgroundColor:
+                      isDarkMode(context) ? Colors.white : Colors.black,
+                  foregroundColor:
+                      isDarkMode(context) ? Colors.black : Colors.white,
+                  child: Text(
+                    widget.detail.user2["name"],
+                    style: const TextStyle(fontSize: Sizes.size12),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
           contentPadding: EdgeInsets.zero,
           horizontalTitleGap: Sizes.size8,
           title: Text(
-            "GT",
-            style: TextStyle(
+            widget.detail.user2["name"],
+            style: const TextStyle(
               fontWeight: FontWeight.w600,
             ),
           ),
-          subtitle: Text("Active now"),
-          trailing: Row(
+          subtitle: const Text("Active now"),
+          trailing: const Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               FaIcon(

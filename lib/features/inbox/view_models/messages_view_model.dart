@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/features/authentication/repository/authentication_repository.dart';
-import 'package:tiktok_clone/features/inbox/models/chat_detail_model.dart';
 import 'package:tiktok_clone/features/inbox/models/message_model.dart';
 import 'package:tiktok_clone/features/inbox/repository/messages_repository.dart';
 
