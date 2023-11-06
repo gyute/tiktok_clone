@@ -139,15 +139,17 @@ class _SearchUserState extends ConsumerState<SearchUser> {
 
     if (!mounted) return;
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    context.pushNamed(
-      ChatDetailScreen.routeName,
-      extra: ChatDetailModel(
-        chatRoomId: chatRoomId,
-        user1: mine.toJson(),
-        user2: oppositeUser,
-        lastMessage: MessageModel(text: "", userId: mine.uid, createdAt: 0),
-      ),
-    );
+    context
+        .pushNamed(
+          ChatDetailScreen.routeName,
+          extra: ChatDetailModel(
+            chatRoomId: chatRoomId,
+            user1: mine.toJson(),
+            user2: oppositeUser,
+            lastMessage: MessageModel(text: "", userId: mine.uid, createdAt: 0),
+          ),
+        )
+        .whenComplete(() => context.pop());
   }
 
   void _onClosePressed() {

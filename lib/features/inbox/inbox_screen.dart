@@ -262,6 +262,6 @@ class _InboxScreenState extends ConsumerState<InboxScreen> {
       context: context,
       backgroundColor: Colors.transparent,
       builder: (context) => const SearchUser(),
-    );
+    ).whenComplete(() => ScaffoldMessenger.of(context).hideCurrentSnackBar());
   }
 }
