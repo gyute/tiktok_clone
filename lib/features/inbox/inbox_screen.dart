@@ -190,17 +190,13 @@ class _InboxScreenState extends ConsumerState<InboxScreen> {
   }
 
   Widget _makeChatTile(int index, ChatDetailModel detail) {
-    final String avatarUrl =
-        "https://firebasestorage.googleapis.com/v0/b/tiktok-gt.appspot.com/"
-        "o/avatars%2F${detail.user2["uid"]}?alt=media";
-
     return ListTile(
       onTap: () => _onChatTap(index, detail),
       onLongPress: () => _deleteItem(index, detail),
       leading: bool.parse(detail.user2["hasAvatar"].toString())
           ? CircleAvatar(
               radius: 30,
-              foregroundImage: NetworkImage(avatarUrl),
+              foregroundImage: NetworkImage(getAvatarUrl(detail.user2["uid"])),
               child: Text(
                 detail.user2["name"],
                 style: const TextStyle(fontSize: Sizes.size12),

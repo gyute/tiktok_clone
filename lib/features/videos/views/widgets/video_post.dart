@@ -9,6 +9,7 @@ import 'package:tiktok_clone/features/videos/view_models/playback_config_view_mo
 import 'package:tiktok_clone/features/videos/view_models/video_post_view_models.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_button.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_comments.dart';
+import 'package:tiktok_clone/utils.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -131,8 +132,8 @@ class VideoPostState extends ConsumerState<VideoPost>
                   radius: 25,
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
-                  foregroundImage: NetworkImage(
-                      "https://firebasestorage.googleapis.com/v0/b/tiktok-gt.appspot.com/o/avatars%2F${widget.videoData.creatorUid}?alt=media"),
+                  foregroundImage:
+                      NetworkImage(getAvatarUrl(widget.videoData.creatorUid)),
                   child: Text(
                     widget.videoData.creator,
                     style: const TextStyle(fontSize: Sizes.size12),

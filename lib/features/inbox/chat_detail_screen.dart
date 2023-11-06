@@ -37,8 +37,8 @@ class _ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
           leading: bool.parse(widget.detail.user2["hasAvatar"].toString())
               ? CircleAvatar(
                   radius: Sizes.size24,
-                  foregroundImage: NetworkImage(
-                      "https://firebasestorage.googleapis.com/v0/b/tiktok-gt.appspot.com/o/avatars%2F${widget.detail.user2["uid"]}?alt=media"),
+                  foregroundImage:
+                      NetworkImage(getAvatarUrl(widget.detail.user2["uid"])),
                   child: Text(
                     widget.detail.user2["name"],
                     style: const TextStyle(fontSize: Sizes.size12),
