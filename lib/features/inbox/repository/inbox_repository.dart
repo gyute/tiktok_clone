@@ -7,12 +7,12 @@ class CreateChatRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<String> createChat(String myId, oppositeId) async {
-    final docId = await _firestore.collection("chat_rooms").add({
+    final docRef = await _firestore.collection("chat_rooms").add({
       "user1": myId,
       "user2": oppositeId,
     });
 
-    return docId.id;
+    return docRef.id;
   }
 
   Future<Map<String, dynamic>?> getUserByEmail(String email) async {
