@@ -7,6 +7,7 @@ import 'package:tiktok_clone/features/inbox/activity_screen.dart';
 import 'package:tiktok_clone/features/inbox/chat_detail_screen.dart';
 import 'package:tiktok_clone/features/inbox/models/chat_detail_model.dart';
 import 'package:tiktok_clone/features/inbox/view_models/inbox_view_model.dart';
+import 'package:tiktok_clone/features/inbox/views/widgets/search_user.dart';
 import 'package:tiktok_clone/utils.dart';
 
 class InboxScreen extends ConsumerStatefulWidget {
@@ -31,12 +32,16 @@ class _InboxScreenState extends ConsumerState<InboxScreen> {
         title: const Text("Inbox"),
         centerTitle: true,
         elevation: 1,
+        leading: IconButton(
+          padding: const EdgeInsets.only(left: Sizes.size10),
+          onPressed: () => _onPlusTab(context),
+          icon: const FaIcon(FontAwesomeIcons.circlePlus),
+        ),
         actions: [
           IconButton(
+            padding: const EdgeInsets.only(right: Sizes.size20),
             onPressed: _addItem,
-            icon: const FaIcon(
-              FontAwesomeIcons.paperPlane,
-            ),
+            icon: const FaIcon(FontAwesomeIcons.paperPlane),
           ),
         ],
       ),
@@ -248,5 +253,19 @@ class _InboxScreenState extends ConsumerState<InboxScreen> {
 
   void _onChatTap(int index, ChatDetailModel detail) {
     context.pushNamed(ChatDetailScreen.routeName, extra: detail);
+  }
+
+  void _onPlusTab(BuildContext context) async {
+    await showModalBottomSheet(
+      useSafeArea: true,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(Sizes.size16),
+      ),
+      clipBehavior: Clip.hardEdge,
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => const SearchUser(),
+    );
   }
 }
