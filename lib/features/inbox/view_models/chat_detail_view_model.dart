@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/features/inbox/models/message_model.dart';
 
+// TODO: Shouldn’t it be moved to the repository?
 final chatProvider = StreamProvider.autoDispose
     .family<List<MessageModel>, String>((ref, chatRoomsId) {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;

@@ -29,6 +29,7 @@ class UserProfileModel {
         name = json["name"],
         bio = json["bio"],
         link = json["link"],
+        // TODO: Unifying the parsing method?
         hasAvatar = bool.parse(json["hasAvatar"].toString());
 
   UserProfileModel copyWith({
