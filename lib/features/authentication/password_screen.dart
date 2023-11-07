@@ -46,12 +46,13 @@ class _PasswordScreen extends ConsumerState<PasswordScreen> {
               ),
               Gaps.v16,
               TextField(
+                obscuringCharacter: "*",
                 obscureText: _obscureText,
                 onEditingComplete: _onSubmit,
                 autocorrect: true,
                 controller: _passwordController,
                 decoration: InputDecoration(
-                  suffix: Row(
+                  suffixIcon: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       GestureDetector(
@@ -67,8 +68,8 @@ class _PasswordScreen extends ConsumerState<PasswordScreen> {
                         onTap: _toggleObscureText,
                         child: FaIcon(
                           _obscureText
-                              ? FontAwesomeIcons.eye
-                              : FontAwesomeIcons.eyeSlash,
+                              ? FontAwesomeIcons.eyeSlash
+                              : FontAwesomeIcons.eye,
                           color: Colors.grey.shade500,
                           size: Sizes.size20,
                         ),
