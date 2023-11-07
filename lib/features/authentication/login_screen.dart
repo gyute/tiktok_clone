@@ -18,7 +18,8 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.symmetric(
             horizontal: Sizes.size40,
           ),
