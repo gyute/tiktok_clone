@@ -7,6 +7,25 @@ class CreateChatRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<String> createChat(String myId, oppositeId) async {
+    final existChatRoom = await _firestore
+        .collection("chat_rooms")
+        .where(
+          Filter.or(
+            Filter.and(
+              Filter('user1', isEqualTo: myId),
+              Filter('user2', isEqualTo: oppositeId),
+            ),
+            Filter.and(
+              Filter('user1', isEqualTo: oppositeId),
+              Filter('user2', isEqualTo: myId),
+            ),
+          ),
+        )
+        .get();
+    if (existChatRoom.docs.firstOrNull != null) {
+      return existChatRoom.docs.first.id;
+    }
+
     final docRef = await _firestore.collection("chat_rooms").add({
       "user1": myId,
       "user2": oppositeId,
